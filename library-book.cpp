@@ -5,7 +5,7 @@ private:
   string author;
   string genre;
   bool is_available;
-  void update const(string message){
+  void update(string message) const{
     cout<<message<<endl;
   }
 
@@ -16,8 +16,8 @@ public:
     title = "NA";
     author = "Unknown";
     genre = "NA";
-    is_available = "false";
-    update("Book: " + title + " added to inventory");
+    is_available = false;
+    update("Book: " + title + " added to inventory successfully");
   }
 
   //parameterized
@@ -27,7 +27,7 @@ public:
     author = new_author;
     genre = new_genre;
     is_available = new_is_available;
-    update("Book: " + title + " added to inventory");
+    update("Book: " + title + " added to inventory successfully");
   }
 
   //copy
@@ -37,21 +37,31 @@ public:
     author = existing_book.author;
     genre = existing_book.genre;
     is_available = existing_book.is_available;
-    update("Copy of Book: " + existing_book.title + " added to inventory");
+    update("Copy of Book: " + existing_book.title + " added to inventory successfully");
   }
 
-  bool borrow_book(book){
-    if(book.is_available){
-      book.is_available = false;
-      update("Book: " + book.title + "is allotted");
+  bool borrow_book(){
+    if(is_available){
+      is_available = false;
+      update("Book: " + title + " is allotted successfully");
       return true;
     }
-    update("Book: " + book.title + "is unavailable");
-    return fasle;
+    update("Book: " + title + "is unavailable");
+    return false;
   }
 
-  bool return_book(book){
-    
+  void return_book(){
+    if(is_available){
+      update("Error - Book: " + title + "is already present");
+      return;
+    }
+    is_available = true;
+    update("Book: " + title + "is returned successfully");
+  }
 
+  void display_info() const{
+    cout<<"ID: "<<id<<"\n"<<"Title: "<<title<<"\n"<<"Author: "<<author<<"\n"<<"Genre: "<<genre<<"\n";
+    cout<<"Available: "<<if(is_available ? "Yes" : "No")<<endl;
+  }
 
-}
+};
